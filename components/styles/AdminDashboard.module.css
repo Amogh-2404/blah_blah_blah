@@ -1,0 +1,80 @@
+/* components/styles/AdminDashboard.module.css */
+.container {
+    padding: 20px;
+}
+
+.section {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+    border: 1px solid #e5e7eb; /* Tailwind's gray-200 */
+    padding: 8px;
+    text-align: left;
+}
+
+.deleteButton {
+    background-color: #ef4444; /* Tailwind's red-500 */
+    color: #ffffff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.deleteButton:hover {
+    background-color: #dc2626; /* Tailwind's red-600 */
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.input,
+.select {
+    padding: 8px;
+    border: 1px solid #d1d5db; /* Tailwind's gray-300 */
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+.button {
+    width: 150px;
+    padding: 10px;
+    background-color: #10b981; /* Tailwind's green-500 */
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #059669; /* Tailwind's green-600 */
+}
+
+.analytics p {
+    margin-bottom: 10px;
+}
+
+.analytics table th,
+.analytics table td {
+    border: 1px solid #e5e7eb; /* Tailwind's gray-200 */
+    padding: 8px;
+    text-align: left;
+}

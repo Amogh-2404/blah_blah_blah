@@ -19,6 +19,11 @@ export default function Header() {
                         </Link>
                     </li>
                     <li>
+                        <Link href="/admin-dashboard">
+                            Admin Dashboard
+                        </Link>
+                    </li>
+                    <li>
                         <Link href="/login">
                             Login
                         </Link>

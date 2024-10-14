@@ -11,18 +11,20 @@ export default function TrackingMap({ bookingId }) {
     const markerRef = useRef(null);
 
     useEffect(() => {
-        // Fetch the Socket.IO server
-        fetch('/api/socket');
-
+        // Initialize Map
         const map = new mapboxgl.Map({
             container: mapContainerRef.current,
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [-0.1276, 51.5074], // Initial center
+            center: [-0.1276, 51.5074], // Initial center (London coordinates)
             zoom: 12,
         });
 
-        markerRef.current = new mapboxgl.Marker().setLngLat([-0.1276, 51.5074]).addTo(map);
+        // Initialize Marker
+        markerRef.current = new mapboxgl.Marker({ color: '#3b82f6' }) // Tailwind's blue-500
+            .setLngLat([-0.1276, 51.5074])
+            .addTo(map);
 
+        // Initialize Socket.IO
         const socket = io();
 
         socket.emit('joinBooking', bookingId);
@@ -30,7 +32,7 @@ export default function TrackingMap({ bookingId }) {
         socket.on('driverLocation', (location) => {
             const [longitude, latitude] = location.coordinates;
             markerRef.current.setLngLat([longitude, latitude]);
-            map.setCenter([longitude, latitude]);
+            map.flyTo({ center: [longitude, latitude], essential: true });
         });
 
         socket.on('statusUpdate', ({ status }) => {

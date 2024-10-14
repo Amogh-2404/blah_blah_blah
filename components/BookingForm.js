@@ -10,9 +10,11 @@ export default function BookingForm({ onBookingSuccess }) {
     const [estimatedCost, setEstimatedCost] = useState(null);
     const [scheduledTime, setScheduledTime] = useState('');
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
     const handleEstimate = async () => {
         setLoading(true);
+        setError('');
         try {
             const response = await axios.post('/api/bookings/estimate', {
                 pickupAddress,
@@ -21,7 +23,8 @@ export default function BookingForm({ onBookingSuccess }) {
             });
             setEstimatedCost(response.data.estimatedCost);
         } catch (error) {
-            console.error('Error getting estimate:', error);
+            console.error('Error getting estimate:', error.response?.data?.message);
+            setError(error.response?.data?.message || 'Error getting estimate');
         } finally {
             setLoading(false);
         }
@@ -30,6 +33,7 @@ export default function BookingForm({ onBookingSuccess }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+        setError('');
 
         try {
             const token = localStorage.getItem('token');
@@ -49,7 +53,8 @@ export default function BookingForm({ onBookingSuccess }) {
             );
             onBookingSuccess(response.data.bookingId);
         } catch (error) {
-            console.error('Error booking vehicle:', error);
+            console.error('Error booking vehicle:', error.response?.data?.message);
+            setError(error.response?.data?.message || 'Error booking vehicle');
         } finally {
             setLoading(false);
         }
@@ -58,6 +63,7 @@ export default function BookingForm({ onBookingSuccess }) {
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
             <h2 className="text-2xl mb-4">Book a Vehicle</h2>
+            {error && <p className="text-red-500 mb-4">{error}</p>}
             <label className={styles.label}>
                 Pickup Address:
                 <input
@@ -83,6 +89,7 @@ export default function BookingForm({ onBookingSuccess }) {
                 <select
                     value={vehicleType}
                     onChange={(e) => setVehicleType(e.target.value)}
+                    required
                     className={styles.select}
                 >
                     <option value="small">Small Van</option>

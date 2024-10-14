@@ -1,3 +1,4 @@
+// pages/user-dashboard.js
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
@@ -10,7 +11,10 @@ export default function UserDashboard() {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        if (!token) router.push('/login');
+        const isDriver = localStorage.getItem('isDriver');
+        if (!token || isDriver === 'true') {
+            router.push('/login');
+        }
     }, [router]);
 
     const handleBookingSuccess = (id) => {
@@ -21,7 +25,7 @@ export default function UserDashboard() {
         <Layout>
             {bookingId ? (
                 <>
-                    <h2>Your Booking ID: {bookingId}</h2>
+                    <h2 className="text-2xl mb-4">Your Booking ID: {bookingId}</h2>
                     <TrackingMap bookingId={bookingId} />
                 </>
             ) : (
