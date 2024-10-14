@@ -1,0 +1,7 @@
+.dashboard {
+    max-width: 600px;
+    margin: 0 auto;
+}
+.buttons button {
+    margin-right: 10px;
+}

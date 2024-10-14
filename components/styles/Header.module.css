@@ -1,0 +1,31 @@
+/* components/styles/Header.module.css */
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #1f2937; /* Tailwind's gray-800 */
+    color: #f9fafb; /* Tailwind's gray-50 */
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navList {
+    display: flex;
+    list-style: none;
+    gap: 15px;
+}
+
+.navList li a {
+    color: #f9fafb;
+    text-decoration: none;
+    padding: 8px 12px;
+}
+
+.navList li a:hover {
+    background-color: #374151; /* Tailwind's gray-700 */
+    border-radius: 4px;
+}

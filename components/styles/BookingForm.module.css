@@ -1,0 +1,44 @@
+/* components/styles/BookingForm.module.css */
+.form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.label {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.input,
+.select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #d1d5db; /* Tailwind's gray-300 */
+    border-radius: 4px;
+}
+
+.button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    background-color: #3b82f6; /* Tailwind's blue-500 */
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #2563eb; /* Tailwind's blue-600 */
+}
+
+.estimate {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+}

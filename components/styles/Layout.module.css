@@ -1,0 +1,6 @@
+/* components/styles/Layout.module.css */
+.main {
+    padding: 20px;
+    min-height: calc(100vh - 80px); /* Adjust according to header/footer height */
+    background-color: #f3f4f6; /* Tailwind's gray-100 */
+}
