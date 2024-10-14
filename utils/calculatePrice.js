@@ -1,12 +1,13 @@
 // utils/calculatePrice.js
 import geolocation from './geolocation';
+import { getCoordinates } from './geocoding';
 
-export default async function calculatePrice(pickupLocation, dropoffLocation, vehicleType) {
+export default async function calculatePrice(pickupAddress, dropoffAddress, vehicleType) {
     try {
-        const distance = await geolocation.getDistance(
-            pickupLocation.coordinates,
-            dropoffLocation.coordinates
-        );
+        const pickupCoordinates = await getCoordinates(pickupAddress);
+        const dropoffCoordinates = await getCoordinates(dropoffAddress);
+
+        const distance = await geolocation.getDistance(pickupCoordinates, dropoffCoordinates);
 
         if (distance === null) throw new Error('Unable to calculate distance');
 
@@ -23,7 +24,11 @@ export default async function calculatePrice(pickupLocation, dropoffLocation, ve
         const demandMultiplier = 1; // Adjust based on real-time demand data
         estimatedCost *= demandMultiplier;
 
-        return Math.round(estimatedCost * 100) / 100; // Round to 2 decimal places
+        return {
+            estimatedCost: Math.round(estimatedCost * 100) / 100, // Round to 2 decimal places
+            pickupCoordinates,
+            dropoffCoordinates,
+        };
     } catch (error) {
         console.error('Error in calculatePrice:', error);
         throw error;

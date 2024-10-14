@@ -11,19 +11,29 @@ export default async function handler(req, res) {
     await dbConnect();
     const user = await authMiddleware(req, res);
 
-    const { pickupLocation, dropoffLocation, vehicleType, scheduledTime } = req.body;
+    const { pickupAddress, dropoffAddress, vehicleType, scheduledTime } = req.body;
 
-    if (!pickupLocation || !dropoffLocation || !vehicleType) {
+    if (!pickupAddress || !dropoffAddress || !vehicleType) {
         return res.status(400).json({ message: 'Missing required fields' });
     }
 
     try {
-        const estimatedCost = await calculatePrice(pickupLocation, dropoffLocation, vehicleType);
+        const {
+            estimatedCost,
+            pickupCoordinates,
+            dropoffCoordinates,
+        } = await calculatePrice(pickupAddress, dropoffAddress, vehicleType);
 
         const booking = new Booking({
             user: user._id,
-            pickupLocation,
-            dropoffLocation,
+            pickupLocation: {
+                address: pickupAddress,
+                coordinates: pickupCoordinates,
+            },
+            dropoffLocation: {
+                address: dropoffAddress,
+                coordinates: dropoffCoordinates,
+            },
             vehicleType,
             estimatedCost,
             scheduledTime: scheduledTime ? new Date(scheduledTime) : null,

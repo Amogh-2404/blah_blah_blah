@@ -17,7 +17,7 @@ export default function TrackingMap({ bookingId }) {
         const map = new mapboxgl.Map({
             container: mapContainerRef.current,
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [-0.1276, 51.5074],
+            center: [-0.1276, 51.5074], // Initial center
             zoom: 12,
         });
 

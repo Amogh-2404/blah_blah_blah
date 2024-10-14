@@ -4,8 +4,8 @@ import axios from 'axios';
 import styles from './styles/BookingForm.module.css';
 
 export default function BookingForm({ onBookingSuccess }) {
-    const [pickupLocation, setPickupLocation] = useState('');
-    const [dropoffLocation, setDropoffLocation] = useState('');
+    const [pickupAddress, setPickupAddress] = useState('');
+    const [dropoffAddress, setDropoffAddress] = useState('');
     const [vehicleType, setVehicleType] = useState('small');
     const [estimatedCost, setEstimatedCost] = useState(null);
     const [scheduledTime, setScheduledTime] = useState('');
@@ -15,8 +15,8 @@ export default function BookingForm({ onBookingSuccess }) {
         setLoading(true);
         try {
             const response = await axios.post('/api/bookings/estimate', {
-                pickupLocation: { address: pickupLocation, coordinates: [-0.1276, 51.5074] }, // Placeholder coordinates
-                dropoffLocation: { address: dropoffLocation, coordinates: [-0.1276, 51.5074] },
+                pickupAddress,
+                dropoffAddress,
                 vehicleType,
             });
             setEstimatedCost(response.data.estimatedCost);
@@ -36,8 +36,8 @@ export default function BookingForm({ onBookingSuccess }) {
             const response = await axios.post(
                 '/api/bookings',
                 {
-                    pickupLocation: { address: pickupLocation, coordinates: [-0.1276, 51.5074] }, // Replace with actual coordinates
-                    dropoffLocation: { address: dropoffLocation, coordinates: [-0.1276, 51.5074] }, // Replace with actual coordinates
+                    pickupAddress,
+                    dropoffAddress,
                     vehicleType,
                     scheduledTime: scheduledTime || null,
                 },
@@ -59,21 +59,21 @@ export default function BookingForm({ onBookingSuccess }) {
         <form className={styles.form} onSubmit={handleSubmit}>
             <h2 className="text-2xl mb-4">Book a Vehicle</h2>
             <label className={styles.label}>
-                Pickup Location:
+                Pickup Address:
                 <input
                     type="text"
-                    value={pickupLocation}
-                    onChange={(e) => setPickupLocation(e.target.value)}
+                    value={pickupAddress}
+                    onChange={(e) => setPickupAddress(e.target.value)}
                     required
                     className={styles.input}
                 />
             </label>
             <label className={styles.label}>
-                Drop-off Location:
+                Drop-off Address:
                 <input
                     type="text"
-                    value={dropoffLocation}
-                    onChange={(e) => setDropoffLocation(e.target.value)}
+                    value={dropoffAddress}
+                    onChange={(e) => setDropoffAddress(e.target.value)}
                     required
                     className={styles.input}
                 />
